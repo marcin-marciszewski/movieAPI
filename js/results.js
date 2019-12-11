@@ -1,6 +1,7 @@
 let searchQuery = sessionStorage.getItem("search");
 const API_KEY = "f1f684a1c6b612f50bc00ebf918eadba";
 
+
 document.addEventListener("click", function (event) {
     if (event.target.className === "movie__title") {
         sessionStorage.setItem("movie", event.target.innerHTML);
@@ -16,7 +17,7 @@ const getMovies = _ => {
     return fetch(MOVIE_URL)
         .then(res => res.json())
         .then(data => {
-            // console.log(data);
+
             const movies = [];
             data.results.forEach((movie, index) => {
                 let obj = {
@@ -30,30 +31,15 @@ const getMovies = _ => {
             });
 
             movies.forEach(movie => {
-                const movieSelected = [];
-
-                if (movie.image === "https://image.tmdb.org/t/p/w500/null") {
+                if (movie.image === "https://image.tmdb.org/t/p/w500null") {
                     movie.image = "img/noimage.jpg";
                 }
-
-
             });
 
+            console.log(movies)
             return movies;
         });
 };
-
-// const selectMovie = movies => {
-//     const movieSelected = [];
-//     console.log(movieSelected);
-//     for (let i = 0; i < movies.length; i++) {
-
-//         if (movies[i].title === movieQuery) {
-//             movieSelected.push(movies[i]);
-//         }
-//     }
-//     return movieSelected;
-// };
 
 const render = movies => {
     let markup = "";
@@ -69,9 +55,6 @@ const render = movies => {
     document.querySelector(".movies").innerHTML = markup;
 };
 
-
-
-
 getMovies().then(data => {
     render(data);
-});
+})

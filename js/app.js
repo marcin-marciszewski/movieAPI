@@ -8,8 +8,6 @@ document.getElementById('search').onkeypress = function (e) {
     }
 }
 
-
-
 const saveData = _ => {
     let input = document.getElementById("search");
     sessionStorage.setItem("search", input.value);
