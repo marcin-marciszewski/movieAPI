@@ -1,41 +1,52 @@
+import { moviesList } from './results.js';
 let movieQuery = sessionStorage.getItem("movie");
-let searchQuery = sessionStorage.getItem("search");
+let decoded = movieQuery.replace(/&amp;/g, '&');
+// let searchQuery = sessionStorage.getItem("search");
 const API_KEY = "f1f684a1c6b612f50bc00ebf918eadba";
 const movieSelected = [];
 
-const getMovies = _ => {
-    const MOVIE_ENDPOINT = "https://api.themoviedb.org";
-    const MOVIE_URL = `${MOVIE_ENDPOINT}/3/search/movie?api_key=${API_KEY}&query=${searchQuery}`;
-    const IMAGE_URL = "https://image.tmdb.org/t/p/w500";
+const getMovie = (_ => {
+    // console.log(moviesList.length);
+    console.log(movieQuery);
 
-    return fetch(MOVIE_URL)
-        .then(res => res.json())
-        .then(data => {
-            const movies = [];
+    console.log(decoded);
 
-            data.results.forEach((movie, index) => {
-                let obj = {
-                    title: movie.title,
-                    image: `${IMAGE_URL}${movie.poster_path}`,
-                    popularity: movie.popularity,
-                    overview: movie.overview,
-                    score: movie.vote_average
-                };
-                movies.push(obj);
-            });
-            return movies;
-        });
-};
 
-const selectMovie = movies => {
-    for (let i = 0; i < movies.length; i++) {
-        if (movies[i].title === movieQuery) {
-            movieSelected.push(movies[i]);
+
+    // const MOVIE_ENDPOINT = "https://api.themoviedb.org";
+    // const MOVIE_URL = `${MOVIE_ENDPOINT}/3/search/movie?api_key=${API_KEY}&query=${searchQuery}`;
+    // const IMAGE_URL = "https://image.tmdb.org/t/p/w500";
+
+    //     return fetch(MOVIE_URL)
+    //         .then(res => res.json())
+    //         .then(_ => {
+
+    //             // const movies = [];
+    //             console.log(moviesList);
+
+    //             data.results.forEach((movie, index) => {
+    //                 let obj = {
+    //                     title: movie.title,
+    //                     image: `${IMAGE_URL}${movie.poster_path}`,
+    //                     popularity: movie.popularity,
+    //                     overview: movie.overview,
+    //                     score: movie.vote_average
+    //                 };
+    //                 movies.push(obj);
+    //             });
+    //             return movies;
+    //         });
+    // };
+
+
+    for (let i = 0; i < moviesList.length; i++) {
+        if (moviesList[i].title === decoded) {
+            movieSelected.push(moviesList[i]);
         }
     }
-};
 
-const renderMovie = _ => {
+
+
     let markup = ` <div class="movie__item">
                     <img src="${movieSelected[0].image}" alt="" class="movie__image">
                     <p class="movie__title">${movieSelected[0].title}</p>
@@ -45,12 +56,15 @@ const renderMovie = _ => {
 
     document.querySelector(".movie").innerHTML = markup;
     console.log(movieSelected);
-};
 
-getMovies()
-    .then(data => {
-        selectMovie(data);
-    })
-    .then(_ => {
-        renderMovie();
-    });
+})();
+
+
+
+    // getMovie()
+    //     .then(data => {
+    //         selectMovie(data);
+    //     })
+    //     .then(_ => {
+    //         renderMovie();
+    //     });
