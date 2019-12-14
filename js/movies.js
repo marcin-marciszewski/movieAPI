@@ -1,5 +1,3 @@
-let a = [];
-
 const getMovies = (_ => {
     // data
     let searchQuery = sessionStorage.getItem("search");
@@ -10,7 +8,7 @@ const getMovies = (_ => {
     let urls = [];
     const movies = [];
     let movieQuery = sessionStorage.getItem("movie");
-    let decoded = movieQuery.replace(/&amp;/g, '&');
+
     const movieSelected = [];
 
     // catch the DOM
@@ -36,6 +34,7 @@ const getMovies = (_ => {
             pages = total_pages;
 
         }).then(_ => {
+
             for (let i = 1; i < pages + 1; i++) {
                 urls.push(`${MOVIE_ENDPOINT}/3/search/movie?api_key=${API_KEY}&query=${searchQuery}&page=${i}`)
             }
@@ -53,8 +52,6 @@ const getMovies = (_ => {
                             score: movie.vote_average
                         };
                         movies.push(obj);
-                        a.push(obj);
-
                     });
 
                 }
@@ -63,6 +60,7 @@ const getMovies = (_ => {
                     if (movie.image === "https://image.tmdb.org/t/p/w500null") {
                         movie.image = "img/noimage.png";
                     }
+
                 });
 
                 if (moviesEl && movies.length > 0) {
@@ -75,6 +73,8 @@ const getMovies = (_ => {
                                 `;
                         moviesEl.innerHTML = markup;
                     });
+
+
                 } else if (moviesEl && movies.length == 0) {
                     markup += `
                         <h1>No movies</h1>
@@ -85,11 +85,12 @@ const getMovies = (_ => {
 
 
                 for (let i = 0; i < movies.length; i++) {
+
+                    let decoded = movieQuery.replace(/&amp;/g, '&');
                     if (movies[i].title === decoded) {
                         movieSelected.push(movies[i]);
                     }
                 }
-
 
                 if (movieEl) {
                     let markupMovie = ` 

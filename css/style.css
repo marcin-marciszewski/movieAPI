@@ -221,7 +221,7 @@ h6 {
     background: #fff;
     align-items: center;
     justify-content: space-evenly;
-    
+  
 }
 
 .movie .movie__details .movie__info {
@@ -230,10 +230,11 @@ h6 {
     text-align: center;
     justify-content: center;
     align-items: center;
+    margin-left:2rem;
 
 }
 .movie .movie__details .movie__info .overview {
-    max-width: 400px;
+    max-width: 500px;
     font-size: 1.2rem;
 }
 

@@ -1,0 +1,58 @@
+#home-movies .movies {
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 2rem;
+}
+
+#home-movies .movies .movie__item {
+    padding: 20px 30px;
+}
+
+.movie .movie__details  {
+    flex-direction: column;
+}
+
+.movie .movie__details .movie__info {
+    margin-top: 2rem;
+}
+
+
+
+
+@media only screen and (max-width: 500px) {
+   /* index.html */
+    #main-nav .container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: .8rem;
+    }
+
+    #main-nav .social {
+        display: none;
+    
+    }
+    #main-nav .logo {
+        padding-top: 0.4rem;
+    }
+
+    /* results.html */
+    #home-movies .movies {
+        grid-template-columns: 1fr;
+       
+    }
+
+    #home-movies .movies .movie__item {
+        display: block;
+    }
+
+    .movie .movie__details {
+        margin: 15px;
+        padding:10px;
+    }
+    
+    .movie .movie__details img {
+        width:300px;
+        padding: 1rem 0;
+    }
+
+  
+}
