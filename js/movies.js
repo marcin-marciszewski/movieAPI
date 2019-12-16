@@ -23,6 +23,8 @@ const getMovies = (_ => {
     });
     const moviesEl = document.querySelector(".movies");
     const movieEl = document.querySelector(".movie");
+    const loaderEl = document.querySelector("#loader");
+
 
 
 
@@ -34,27 +36,34 @@ const getMovies = (_ => {
             pages = total_pages;
 
         }).then(_ => {
-
             for (let i = 1; i < pages + 1; i++) {
                 urls.push(`${MOVIE_ENDPOINT}/3/search/movie?api_key=${API_KEY}&query=${searchQuery}&page=${i}`)
             }
-
         }).then(_ => {
             let markup = "";
             let promises = urls.map((url) => fetch(url).then(res => res.json()));
             Promise.all(promises).then(results => {
-                for (let i = 0; i < results.length; i++) {
-                    results[i].results.forEach((movie) => {
-                        let obj = {
-                            title: movie.title,
-                            image: `${IMAGE_URL}${movie.poster_path}`,
-                            overview: movie.overview,
-                            score: movie.vote_average
-                        };
-                        movies.push(obj);
-                    });
-
+                if (results.length < 25) {
+                    for (let i = 0; i < results.length; i++) {
+                        results[i].results.forEach((movie) => {
+                            let obj = {
+                                title: movie.title,
+                                image: `${IMAGE_URL}${movie.poster_path}`,
+                                overview: movie.overview,
+                                score: movie.vote_average
+                            };
+                            movies.push(obj);
+                        });
+                    }
+                } else {
+                    markup += `
+                    <h1>Too many results, please specify your request.</h1>
+                `
+                    moviesEl.innerHTML = markup;
                 }
+
+                moviesEl.classList.remove("hidden");
+                loaderEl.classList.add("hidden");
 
                 movies.forEach(movie => {
                     if (movie.image === "https://image.tmdb.org/t/p/w500null") {
@@ -110,6 +119,3 @@ const getMovies = (_ => {
         })
 
 })();
-
-
-
