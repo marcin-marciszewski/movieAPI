@@ -86,6 +86,8 @@ const getMovies = (_ => {
 
 
                 } else if (moviesEl && movies.length == 0) {
+                    moviesEl.classList.remove("hidden");
+                    loaderEl.classList.add("hidden");
                     markup += `
                         <h1>No movies</h1>
                     `
