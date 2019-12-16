@@ -62,8 +62,6 @@ const getMovies = (_ => {
                     moviesEl.innerHTML = markup;
                 }
 
-                moviesEl.classList.remove("hidden");
-                loaderEl.classList.add("hidden");
 
                 movies.forEach(movie => {
                     if (movie.image === "https://image.tmdb.org/t/p/w500null") {
@@ -73,6 +71,9 @@ const getMovies = (_ => {
                 });
 
                 if (moviesEl && movies.length > 0) {
+                    moviesEl.classList.remove("hidden");
+                    loaderEl.classList.add("hidden");
+
                     movies.forEach(movie => {
                         markup += `
                             <div class="movie__item">
